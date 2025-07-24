@@ -1,0 +1,80 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildSdkVersion
+
+    defaultConfig {
+        applicationId "com.book.studio.demo.opus"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
+        }
+    }
+
+    //签名使用的相关证书
+    signingConfigs {
+        release {
+            storeFile file('keystore.jks')
+            storePassword '123456'
+            keyAlias 'baidu'
+            keyPassword '123456'
+        }
+        debug {
+            storeFile file('keystore.jks')
+            storePassword '123456'
+            keyAlias 'baidu'
+            keyPassword '123456'
+        }
+    }
+
+    buildTypes {
+
+        debug {
+            minifyEnabled false
+            // shrinkResources true
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            minifyEnabled true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/ASL2.0'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.aar'], dir: 'libs')
+    implementation project(":libopus")
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+}
+
+configurations.all { // check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
