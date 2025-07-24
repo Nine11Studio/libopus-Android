@@ -17,35 +17,19 @@ android {
         }
     }
 
-    //签名使用的相关证书
-    signingConfigs {
-        release {
-            storeFile file('keystore.jks')
-            storePassword '123456'
-            keyAlias 'baidu'
-            keyPassword '123456'
-        }
-        debug {
-            storeFile file('keystore.jks')
-            storePassword '123456'
-            keyAlias 'baidu'
-            keyPassword '123456'
-        }
-    }
-
     buildTypes {
 
         debug {
             minifyEnabled false
             // shrinkResources true
-            signingConfig signingConfigs.debug
+            // signingConfig signingConfigs.debug
         }
 
         release {
             minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            // signingConfig signingConfigs.release
         }
     }
 
