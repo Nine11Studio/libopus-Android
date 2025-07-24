@@ -10,6 +10,7 @@
 提供 Cmake 和 make 两种编译方式
 
 1、直接使用 gradlew assembleDebug 编译libopus 模块，生成 aar 使用
+
 2、找到 Android.mk 目录，使用 ndk-build 命令直接编译生成 so 使用
 
 # 修改
